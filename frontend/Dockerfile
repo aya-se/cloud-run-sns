@@ -1,3 +1,5 @@
 FROM node:lts-buster-slim
 WORKDIR /app
-RUN npm install -g npm@latest && npm install create-react-app
+COPY . .
+RUN npm install && cd src && npm run build
+CMD npm run start

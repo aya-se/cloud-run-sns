@@ -1,0 +1,11 @@
+version: '3'
+services:
+  app:
+    build: .
+    volumes:
+      - .:/app
+    environment:
+      - WATCHPACK_POLLING=true
+    ports:
+      - "3000:3000"
+    command: sh -c "cd src && npm run dev"

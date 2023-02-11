@@ -1,7 +1,19 @@
 import Head from 'next/head'
 import styles from '@/styles/Home.module.scss'
 
-export default function Home() {
+export async function getServerSideProps() {
+  const API_URL = process.env.API_URL
+  const res = await fetch(`${API_URL}/hello?name=Next`)
+  const data = await res.json()
+  return {
+    props: {
+      data,
+    },
+  }
+}
+export default function Home(props: any) {
+  const API_URL = process.env.NEXT_PUBLIC_API_URL
+  console.log(process.env.NEXT_PUBLIC_API_URL)
   return (
     <>
       <Head>

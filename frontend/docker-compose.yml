@@ -1,6 +1,7 @@
 version: '3'
 services:
   app:
+    container_name: frontend
     build:
       dockerfile: Dockerfile.development
     volumes:
@@ -9,4 +10,9 @@ services:
       - WATCHPACK_POLLING=true
     ports:
       - 3000:3000
+    networks:
+      - share-network
     command: sh -c "npm run dev"
+networks:
+  share-network:
+    external: true

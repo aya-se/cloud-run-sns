@@ -12,8 +12,6 @@ export async function getServerSideProps() {
   }
 }
 export default function Home(props: any) {
-  const API_URL = process.env.NEXT_PUBLIC_API_URL
-  console.log(process.env.NEXT_PUBLIC_API_URL)
   return (
     <>
       <Head>
@@ -24,6 +22,7 @@ export default function Home(props: any) {
       </Head>
       <main className={styles.main}>
         <h1>Hello Cloud Run SNS</h1>
+        <p>{props.data.message}</p>
       </main>
     </>
   )

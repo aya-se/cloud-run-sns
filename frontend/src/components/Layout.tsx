@@ -1,4 +1,4 @@
-import Header from "./Header";
+import Header from "@/components/Header";
 import { ReactElement } from "react";
 import Head from "next/head";
 

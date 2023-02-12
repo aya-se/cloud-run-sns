@@ -17,8 +17,8 @@ export default NextAuth({
       return token;
     },
     //セッションがチェックされた時に呼ばれる
-    async session({ session, token, user }) {
-      session.accessToken = token.accessToken;
+    async session({ session, token }) {
+      session.user.accessToken = token.accessToken;
       return session;
     },
   },

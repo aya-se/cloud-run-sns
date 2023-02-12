@@ -24,7 +24,21 @@
       margin: auto 0;
       text-decoration: none;
       &:hover {
-        color: #2a6679;
+        color: #3367d6;
+      }
+    }
+    .header_button {
+      margin: auto 40px;
+      margin-left: auto;
+      border: none;
+      outline: none;
+      background: none;
+      color: #3367d6;
+      font-size: 1rem;
+      border-radius: 10px;
+      cursor: pointer;
+      &:hover {
+        color: #1f51bf;
       }
     }
   }

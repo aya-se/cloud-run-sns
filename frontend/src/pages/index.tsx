@@ -36,25 +36,10 @@ export default function Home(props: any) {
         <link rel="icon" href="/google-cloud.png" />
       </Head>
       <main className={styles.home}>
-        {session && session.user ?
-          ( 
-            <>
-              Signed in as {session.user.email} <br/>
-              <button onClick={() => signOut()}>Sign out</button>
-            </>
-          )
-        :
-          (
-             <>
-              Not signed in <br/>
-              <button onClick={() => signIn("google")}>Sign in</button>
-            </>
-          )
-        }
-        <AccountCard account={myAccount} session={session}/>
-        <Card account={myAccount} text={text}/>
-        <Card account={myAccount} text={text}/>
-        <Card account={myAccount} text={text}/>
+        <AccountCard account={myAccount} />
+        <Card account={myAccount} text={text} />
+        <Card account={myAccount} text={text} />
+        <Card account={myAccount} text={text} />
       </main>
     </>
   )

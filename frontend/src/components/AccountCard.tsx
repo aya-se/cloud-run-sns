@@ -2,19 +2,18 @@ import Image from "next/image"
 import styles from "@/styles/AccountCard.module.scss";
 import { Account } from "@/types/Account";
 import { useState } from "react";
-import { Session } from "next-auth";
-import { signIn } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 
 type CardProps = {
-    account: Account,
-    session: Session,
+    account: Account
 }
 export default function Card(props: CardProps) {
   const [newText, setNewText] = useState<string>("");
+  const { data: session } = useSession();
   const handleSubmitPost = async () => {
     return;
   }
-  if (props.session && props.session.user) {
+  if (session && session.user) {
     return (
       <div className={styles.card}>
         <div className={styles.card_header}>

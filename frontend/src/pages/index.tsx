@@ -6,7 +6,22 @@ import { useSession } from "next-auth/react"
 import AccountCard from '@/components/AccountCard'
 import { useEffect, useState } from 'react'
 
-export default function Home() {
+type Props = {
+  data: string
+}
+export async function getServerSideProps() {
+  const API_URL = process.env.API_URL
+  const res = await fetch(`${API_URL}/hello?name=Next`)
+  const data = await res.json()
+  const props: Props = {
+    data: data.message
+  };
+  return {
+    props: props
+  }
+}
+export default function Home(props: Props) {
+  console.log(props);
   const { data: session } = useSession();
   const [myAccount, setMyAccount] = useState<Account>({ id: "Account ID", name: "Account Name", image: "/google-cloud.png"});
   useEffect(() => {

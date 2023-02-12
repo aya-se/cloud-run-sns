@@ -3,19 +3,20 @@ import styles from "@/styles/AccountCard.module.scss";
 import { Account } from "@/types/Account";
 import { useState } from "react";
 import { signIn, useSession } from "next-auth/react";
+import { useRouter } from "next/router";
 
 type CardProps = {
     account: Account
 }
 export default function Card(props: CardProps) {
+  const router = useRouter()
   const [newText, setNewText] = useState<string>("");
   const { data: session } = useSession();
-  const API_URL = process.env.NEXT_PUBLIC_API_URL;
   const handleSubmitPost = async () => {
-    const res = await fetch(`${API_URL}/post?text=${newText}`, { method: "POST" });
+    const res = await fetch(`/api/post?text=${newText}`);
     const data = await res.json()
     console.log(data);
-    return;
+    router.reload();
   };
   if (session && session.user) {
     return (

@@ -2,21 +2,11 @@ import Card from '@/components/Card'
 import Head from 'next/head'
 import styles from '@/styles/Home.module.scss'
 import { Account } from '@/types/Account'
-import { useSession, signIn, signOut } from "next-auth/react"
+import { useSession } from "next-auth/react"
 import AccountCard from '@/components/AccountCard'
 import { useEffect, useState } from 'react'
 
-export async function getServerSideProps() {
-  const API_URL = process.env.API_URL
-  const res = await fetch(`${API_URL}/hello?name=Next`)
-  const data = await res.json()
-  return {
-    props: {
-      data,
-    },
-  }
-}
-export default function Home(props: any) {
+export default function Home() {
   const { data: session } = useSession();
   const [myAccount, setMyAccount] = useState<Account>({ id: "Account ID", name: "Account Name", image: "/google-cloud.png"});
   useEffect(() => {

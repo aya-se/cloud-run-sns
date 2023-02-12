@@ -35,9 +35,10 @@
       background: none;
       color: #3367d6;
       font-size: 1rem;
-      border-radius: 10px;
+      border-radius: 5px;
       cursor: pointer;
       &:hover {
+        background-color: #eaeaea;
         color: #1f51bf;
       }
     }

@@ -10,9 +10,13 @@ type CardProps = {
 export default function Card(props: CardProps) {
   const [newText, setNewText] = useState<string>("");
   const { data: session } = useSession();
+  const API_URL = process.env.NEXT_PUBLIC_API_URL;
   const handleSubmitPost = async () => {
+    const res = await fetch(`${API_URL}/post?text=${newText}`, { method: "POST" });
+    const data = await res.json()
+    console.log(data);
     return;
-  }
+  };
   if (session && session.user) {
     return (
       <div className={styles.card}>

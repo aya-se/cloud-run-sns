@@ -1,6 +1,5 @@
 from typing import Any, Optional
 from pydantic import BaseModel, Field
-from google.cloud import firestore
 
 class PostBase(BaseModel):
     user_name: Optional[str] = Field(None, example="John Doe")

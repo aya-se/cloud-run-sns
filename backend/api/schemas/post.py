@@ -13,6 +13,9 @@ class PostCreate(PostBase):
 class PostCreateResponse(PostCreate):
     pass
 
+class PostDelete(BaseModel):
+    id: str
+
 class Post(PostBase):
     id: str
     timestamp: Any = Field(None, example="2021-01-01T00:00:00.000000Z")

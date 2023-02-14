@@ -1,6 +1,5 @@
 import os
 from typing import List
-import uuid
 import api.schemas.post as post_schema
 from fastapi import APIRouter
 from google.cloud import firestore
@@ -30,10 +29,7 @@ async def post_root(post_body: post_schema.PostCreate):
     db.collection(u"posts").document().set(data)
     return post_schema.PostCreateResponse(**post_body.dict())
 
-@router.put("/posts/{id}")
-async def put_root(id: str, text: str):
-    pass
-
 @router.delete("/posts/{id}")
-async def delete_root(id: str):
-    pass
+async def delete_root(post_delete_body: post_schema.PostDelete):
+    db.collection(u"posts").document(post_delete_body.id).delete()
+    return {"message": "Post deleted successfully"}

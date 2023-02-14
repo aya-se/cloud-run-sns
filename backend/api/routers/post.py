@@ -10,10 +10,12 @@ db = firestore.Client(os.getenv("GOOGLE_CLOUD_PROJECT"))
 
 @router.get("/posts", response_model=List[post_schema.Post])
 async def get_root():
-    docs = db.collection(u"posts").stream()
+    docs = db.collection(u"posts").order_by(u"timestamp", direction=firestore.Query.DESCENDING).get()
     posts = []
     for doc in docs:
-      posts.append(doc.to_dict())
+      data = doc.to_dict()
+      data["id"] = doc.id
+      posts.append(data)
     return posts
 
 @router.post("/posts", response_model=post_schema.PostCreateResponse)

@@ -3,11 +3,14 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  console.log(req.query);
   const API_URL = process.env.API_URL;
-  const query = new URLSearchParams(req.query as Record<string, string>);
-  const response = await fetch(`${API_URL}/post?${query}`, {
+  const response = await fetch(`${API_URL}/posts`, {
     method: "POST",
+    headers: {
+      "accept": "application/json",
+      "Content-Type": "application/json",
+    },
+    body: req.body,
   });
   const data = await response.json();
   res.status(200).json(data);

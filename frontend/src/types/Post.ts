@@ -5,4 +5,4 @@ export type Post = {
   user_email: string;
   user_image: string;
   text: string;
-}
+};

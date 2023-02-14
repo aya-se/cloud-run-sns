@@ -7,15 +7,18 @@ from google.cloud import firestore
 router = APIRouter()
 db = firestore.Client(os.getenv("GOOGLE_CLOUD_PROJECT"))
 
+
 @router.get("/posts", response_model=List[post_schema.Post])
 async def get_root():
-    docs = db.collection(u"posts").order_by(u"timestamp", direction=firestore.Query.DESCENDING).get()
+    docs = db.collection(u"posts").order_by(
+        u"timestamp", direction=firestore.Query.DESCENDING).get()
     posts = []
     for doc in docs:
-      data = doc.to_dict()
-      data["id"] = doc.id
-      posts.append(data)
+        data = doc.to_dict()
+        data["id"] = doc.id
+        posts.append(data)
     return posts
+
 
 @router.post("/posts", response_model=post_schema.PostCreateResponse)
 async def post_root(post_body: post_schema.PostCreate):
@@ -28,6 +31,7 @@ async def post_root(post_body: post_schema.PostCreate):
     }
     db.collection(u"posts").document().set(data)
     return post_schema.PostCreateResponse(**post_body.dict())
+
 
 @router.delete("/posts/{id}")
 async def delete_root(post_delete_body: post_schema.PostDelete):

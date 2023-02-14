@@ -1,4 +1,4 @@
-import { NextApiRequest, NextApiResponse } from 'next';
+import { NextApiRequest, NextApiResponse } from "next";
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
@@ -7,7 +7,7 @@ export default async function handler(
   const response = await fetch(`${API_URL}/posts`, {
     method: "POST",
     headers: {
-      "accept": "application/json",
+      accept: "application/json",
       "Content-Type": "application/json",
     },
     body: req.body,

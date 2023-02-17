@@ -1,8 +1,9 @@
 import os
 from typing import List
 import api.schemas.post as post_schema
-from fastapi import APIRouter
+from fastapi import APIRouter, Header, HTTPException
 from google.cloud import firestore
+from .auth import verify_id_token
 
 router = APIRouter()
 db = firestore.Client(os.getenv("GOOGLE_CLOUD_PROJECT"))
@@ -21,7 +22,11 @@ async def get_root():
 
 
 @router.post("/posts", response_model=post_schema.PostCreateResponse)
-async def post_root(post_body: post_schema.PostCreate):
+async def post_root(post_body: post_schema.PostCreate, token: str = Header(None)):
+    if not token:
+        raise HTTPException(status_code=401, detail="Authorization header is missing.")
+    if not verify_id_token(token):
+        raise HTTPException(status_code=401, detail="Invalid token.")
     data = {
         u"timestamp": firestore.SERVER_TIMESTAMP,
         u"user_name": post_body.user_name,
@@ -34,6 +39,10 @@ async def post_root(post_body: post_schema.PostCreate):
 
 
 @router.delete("/posts/{id}")
-async def delete_root(post_delete_body: post_schema.PostDelete):
+async def delete_root(post_delete_body: post_schema.PostDelete, token: str = Header(None)):
+    if not token:
+        raise HTTPException(status_code=401, detail="Authorization header is missing.")
+    if not verify_id_token(token):
+        raise HTTPException(status_code=401, detail="Invalid token.")
     db.collection(u"posts").document(post_delete_body.id).delete()
     return {"message": "Post deleted successfully"}

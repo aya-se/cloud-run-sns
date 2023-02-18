@@ -7,10 +7,11 @@ export default async function handler(
   const response = await fetch(`${API_URL}/posts`, {
     method: "POST",
     headers: {
-      accept: "application/json",
+      Authorization: req.headers.authorization || "",
       "Content-Type": "application/json",
+      accept: "application/json",
     },
-    body: req.body,
+    body: JSON.stringify(req.body),
   });
   const data = await response.json();
   res.status(200).json(data);

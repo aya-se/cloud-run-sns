@@ -6,7 +6,7 @@ class PostBase(BaseModel):
     user_name: Optional[str] = Field(None, example="John Doe")
     user_email: Optional[str] = Field(None, example="example@gmail.com")
     user_image: Optional[str] = Field(
-        None, example="https://example.com/image.png")
+        None, example="/google-cloud.png")
     text: Optional[str] = Field(None, example="Hello World!")
 
 

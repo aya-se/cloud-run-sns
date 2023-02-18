@@ -16,6 +16,11 @@ export default function Card(props: CardProps) {
     if (newText === "") return;
     await fetch("/api/post", {
       method: "POST",
+      headers: {
+        Authorization: `Bearer ${session?.user.idToken}` ?? "",
+        "Content-Type": "application/json",
+        accept: "application/json",
+      },
       body: JSON.stringify({
         ...props.account,
         text: newText,

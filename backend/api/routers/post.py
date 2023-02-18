@@ -1,7 +1,7 @@
 import os
 from typing import List
 import api.schemas.post as post_schema
-from fastapi import APIRouter, HTTPException, Depends
+from fastapi import APIRouter, Depends
 from google.cloud import firestore
 from .auth import verify_token
 
@@ -21,7 +21,7 @@ async def get_root():
     return posts
 
 @router.post("/posts", response_model=post_schema.PostCreateResponse)
-async def post_root(post_body: post_schema.PostCreate, _: str = Depends(verify_token)):
+async def post_root(post_body: post_schema.PostCreate, _: bool = Depends(verify_token)):
     data = {
         u"timestamp": firestore.SERVER_TIMESTAMP,
         u"user_name": post_body.user_name,
@@ -34,6 +34,6 @@ async def post_root(post_body: post_schema.PostCreate, _: str = Depends(verify_t
 
 
 @router.delete("/posts/{id}")
-async def delete_root(post_delete_body: post_schema.PostDelete, _: str = Depends(verify_token)):
+async def delete_root(post_delete_body: post_schema.PostDelete, _: bool = Depends(verify_token)):
     db.collection(u"posts").document(post_delete_body.id).delete()
     return {"message": "Post deleted successfully"}

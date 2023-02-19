@@ -14,7 +14,7 @@ export default function Card(props: CardProps) {
   const { data: session } = useSession();
   const handleSubmitPost = async () => {
     if (newText === "") return;
-    await fetch("/api/post", {
+    await fetch("/api/posts", {
       method: "POST",
       headers: {
         Authorization: `Bearer ${session?.user.idToken}` ?? "",

@@ -33,7 +33,7 @@ async def post_root(post_body: post_schema.PostCreate, _: bool = Depends(verify_
     return post_schema.PostCreateResponse(**post_body.dict())
 
 
-@router.delete("/posts/{id}")
+@router.delete("/posts")
 async def delete_root(post_delete_body: post_schema.PostDelete, _: bool = Depends(verify_token)):
     db.collection(u"posts").document(post_delete_body.id).delete()
     return {"message": "Post deleted successfully"}

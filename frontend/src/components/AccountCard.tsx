@@ -17,6 +17,7 @@ export default function Card(props: CardProps) {
     await fetch("/api/posts", {
       method: "POST",
       headers: {
+        "X-Id-Token": `Bearer ${session?.user.idToken}` ?? "",
         "Content-Type": "application/json",
         accept: "application/json",
       },

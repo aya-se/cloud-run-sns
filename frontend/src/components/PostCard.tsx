@@ -26,7 +26,7 @@ export default function PostCard(props: PostCardProps) {
     await fetch(`/api/posts/?id=${props.post.id}`, {
       method: "DELETE",
       headers: {
-        Authorization: `Bearer ${session?.user.idToken}` ?? "",
+        "X-Id-Token": session?.user.idToken ?? "",
         "Content-Type": "application/json",
         accept: "application/json",
       },

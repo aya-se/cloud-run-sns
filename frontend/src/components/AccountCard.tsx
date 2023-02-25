@@ -17,14 +17,11 @@ export default function Card(props: CardProps) {
     await fetch("/api/posts", {
       method: "POST",
       headers: {
-        "X-Id-Token": `Bearer ${session?.user.idToken}` ?? "",
+        "X-Id-Token": session?.user.idToken ?? "",
         "Content-Type": "application/json",
         accept: "application/json",
       },
-      body: JSON.stringify({
-        ...props.account,
-        text: newText,
-      }),
+      body: JSON.stringify({ text: newText }),
     });
     router.reload();
   };

@@ -8,6 +8,7 @@ export default async function handler(
   const API_URL = process.env.API_URL;
   const auth = new GoogleAuth();
   const client = await auth.getIdTokenClient(API_URL ?? "");
+  delete req.headers.host;
   const response = await client
     .request({
       url: `${API_URL}/posts`,

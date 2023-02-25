@@ -6,14 +6,17 @@ import { Post } from "@/types/Post";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import styles from "@/styles/Home.module.scss";
+import { GoogleAuth } from "google-auth-library";
 
 type Props = {
   data: Array<Post>;
 };
 export async function getServerSideProps() {
   const API_URL = process.env.API_URL;
-  const res = await fetch(`${API_URL}/posts`);
-  const data = await res.json();
+  const auth = new GoogleAuth();
+  const client = await auth.getIdTokenClient(API_URL ?? "");
+  const res = await client.request({ url: `${API_URL}/posts` });
+  const data = (await res.data) as Array<Post>;
   const props: Props = {
     data: data,
   };

@@ -21,7 +21,8 @@ async def get_root():
     return posts
 
 @router.post("/posts", response_model=post_schema.PostCreateResponse)
-async def post_root(post_body: post_schema.PostCreate, _: bool = Depends(verify_token)):
+async def post_root(post_body: post_schema.PostCreate, info = Depends(verify_token)):
+    print(info)
     data = {
         u"timestamp": firestore.SERVER_TIMESTAMP,
         u"user_name": post_body.user_name,

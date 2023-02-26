@@ -25,7 +25,6 @@ async def get_root():
 
 @router.post("/posts")
 async def post_root(post_body: post_schema.PostCreate, id_info = Depends(verify_token)):
-    '''
     # 投稿データ
     data = {
         u"timestamp": firestore.SERVER_TIMESTAMP,
@@ -37,12 +36,10 @@ async def post_root(post_body: post_schema.PostCreate, id_info = Depends(verify_
     # 投稿を作成
     db.collection(u"posts").document().set(data)
     return {"message": "Post created successfully"}
-    '''
 
 
 @router.delete("/posts")
 async def delete_root(post_delete_body: post_schema.PostDelete, id_info = Depends(verify_token)):
-    '''
     doc = db.collection(u"posts").document(post_delete_body.id).get()
     # 存在しない投稿を削除しようとした場合
     if not doc.exists:
@@ -54,4 +51,3 @@ async def delete_root(post_delete_body: post_schema.PostDelete, id_info = Depend
     # 投稿を削除
     db.collection(u"posts").document(post_delete_body.id).delete()
     return {"message": "Post deleted successfully"}
-    '''

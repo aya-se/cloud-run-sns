@@ -17,6 +17,11 @@ export async function getServerSideProps() {
   const client = await auth.getIdTokenClient(API_URL ?? "");
   const res = await client.request({ url: `${API_URL}/posts` });
   const data = (await res.data) as Array<Post>;
+  /*
+  const res = await fetch(`${API_URL}/posts`);
+  const data = (await res.json()) as Array<Post>;
+  */
+  // const data = new Array<Post>();
   const props: Props = {
     data: data,
   };

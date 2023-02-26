@@ -6,12 +6,11 @@ from google.cloud import firestore
 from .auth import verify_token
 
 router = APIRouter()
-# db = firestore.Client(os.getenv("GOOGLE_CLOUD_PROJECT"))
+db = firestore.Client(os.getenv("GOOGLE_CLOUD_PROJECT"))
 
 
 @router.get("/posts", response_model=List[post_schema.Post])
 async def get_root():
-    '''
     # 投稿を取得
     docs = db.collection(u"posts").order_by(
         u"timestamp", direction=firestore.Query.DESCENDING).get()
@@ -22,7 +21,6 @@ async def get_root():
         data["id"] = doc.id
         posts.append(data)
     return posts
-    '''
 
 
 @router.post("/posts")
